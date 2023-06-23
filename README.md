@@ -162,16 +162,16 @@ function App() {
 ## passing children
 
 - interface
-- ReactNode (deprecated)
+- ReactNode
 - ReactElement
 
 Alert.tsx
 
 ```
-import React, {ReactElement } from "react";
+import React, {ReactElement,ReactNode } from "react";
 
 interface Props {
-  children: ReactElement;
+  children: ReactNode;
 }
 
 const Alert = ({ children }: Props) => {
@@ -194,8 +194,117 @@ function App() {
 }
 ```
 
+## exercise create a button
+
+- interface 
+- Props
+- onClick
+
+Button.tsx
+
+```
+interface Props {
+  color?: "secondary" | "primary" | "danger" | "react";
+  children: string;
+  onClick: () => void;
+}
+
+const Button = ({ children, onClick, color = "primary" }: Props) => {
+  return (
+    <button className={"btn btn-" + color} onClick={onClick}>
+      {children}
+    </button>
+  );
+};
+
+export default Button;
+```
+
+App.tsx
+
+```
+function App() {
+  return (
+    <div>
+      <Button
+        color="react"
+        onClick={() => console.log("this is log from click button")}
+      >
+        This is a Button
+      </Button>
+    </div>
+  );
+}
+```
+
+## show hide button alert
+
+Alert.tsx
+
+```
+interface Props {
+  children: ReactNode;
+  onClose: () => void;
+}
+
+const Alert = ({ children, onClose }: Props) => {
+  return (
+    <div className="alert alert-primary alert-dismissible">
+      {children}
+      <button type="button" className="btn-close" onClick={onClose}></button>
+    </div>
+  );
+};
+
+export default Alert;
+```
+
+App.tsx
+
+```
+function App() {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <div>
+      {visible && (
+        <Alert onClose={() => setVisible(false)}>This is an Alert !</Alert>
+      )}
+      <Button
+        color="danger"
+        onClick={() => {
+          setVisible(true);
+          console.log("this is log from click button");
+        }}
+      >
+        This is a Button
+      </Button>
+    </div>
+  );
+}
+
+```
+
+Button.tsx
+```
+interface Props {
+  color?: "secondary" | "primary" | "danger" | "react";
+  children: string;
+  onClick: () => void;
+}
+
+const Button = ({ children, onClick, color = "primary" }: Props) => {
+  return (
+    <button className={"btn btn-" + color} onClick={onClick}>
+      {children}
+    </button>
+  );
+};
+```
+
 ## vscode hot keys
 - command + D
+- typing rafce in new file
 
 
 see link from 

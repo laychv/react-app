@@ -1,26 +1,24 @@
+import { useState } from "react";
 import Alert from "./components/Alert";
-import ListGroup from "./components/ListGroup";
+import Button from "./components/Button";
 
 function App() {
-  // let items = ["CN", "CA", "USA"];
-  // const handleSeletedItem = (item: string) => {
-  //   console.log(item);
-  // };
-  // return (
-  //   <div>
-  //     <ListGroup
-  //       items={items}
-  //       heading="countries"
-  //       onSelectedItem={handleSeletedItem}
-  //     />
-  //   </div>
-  // );
+  const [visible, setVisible] = useState(false);
 
   return (
     <div>
-      <Alert>
-        <span>this is a child!</span>
-      </Alert>
+      {visible && (
+        <Alert onClose={() => setVisible(false)}>This is an Alert !</Alert>
+      )}
+      <Button
+        color="danger"
+        onClick={() => {
+          setVisible(true);
+          console.log("this is log from click button");
+        }}
+      >
+        This is a Button
+      </Button>
     </div>
   );
 }
